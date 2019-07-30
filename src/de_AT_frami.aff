@@ -1,29 +1,68 @@
-# this is the affix file of the de_CH Hunspell dictionary
-# derived from the igerman98 dictionary
-#
-# Version: 20120607 (build 20120608)
+# This is the affix file of the de_AT Hunspell dictionary derived from
+# the igerman98 dictionary
 #
 # Copyright (C) 1998-2011 Bjoern Jacke <bjoern@j3e.de>
 #
-# License: GPLv2, GPLv3 or OASIS distribution license agreement
-# There should be a copy of both of this licenses included
-# with every distribution of this dictionary. Modified
-# versions using the GPL may only include the GPL
+# License: GPLv2, GPLv3 or OASIS distribution license agreement There
+# should be a copy of both of this licenses included with every
+# distribution of this dictionary. Modified versions using the GPL may
+# only include the GPL
 
+
+# Charset used by this dictionary.
 SET UTF-8
-TRY esijanrtolcdugmphbyfvkwqxzäüößáéêàâñESIJANRTOLCDUGMPHBYFVKWQXZÄÜÖÉ-.
 
-# Prefixes are allowed at the beginning of compounds,
-# suffixes are allowed at the end of compounds by default:
-# (prefix)?(root)+(affix)?
+# Be compatible with systems / locales were isalpha() doesn't work.
+# (This is unlikely with UTF-8, but doesn't hurt.)
+FOL àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþßÿ
+LOW àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþßÿ
+UPP ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßÿ
+
+# FIXME: I'm not sure if this is correct. With this option ' is treated
+# as a word character if it appears between two word characters. E.g. it
+# would be possible to match "auf's" as a valid word. But there are no
+# apostrophes in german, so words like "auf's" or "auf'm" can never be
+# right...
+MIDWORD '
+
+# How compound words are formed. Matches compounds like 'xz' or 'xyz'.
+COMPOUNDRULE xy?z
+
+# Flag for bad / forbidden / excluded words. Same as BAD.
+FORBIDDENWORD d
+
+# Flag for words that must be used in compounds. The word cannot be
+# used alone. Same as NEEDCOMPOUND.
+ONLYINCOMPOUND o
+
+# Prefixes are allowed at the beginning of compounds, suffixes are
+# allowed at the end of compounds by default: (prefix)?(root)+(affix)?
 # Affixes with COMPOUNDPERMITFLAG may be inside of compounds.
 COMPOUNDPERMITFLAG c
+
+# Flag for words that are required to be used with an affix.
+NEEDAFFIX h
+
+# Flag for words were case matters, e.g. 'morgens' is always lower case.
+KEEPCASE w
+
+# Make not all possible suggestions for typos of Flicken or some other
+# rare or offensive words.
+NOSUGGEST n
+
+# Make only words with up to 3 compounds. It would be nice to have at
+# least up to 5 words, but this is a HUGE performance penalty. Even 3
+# may be too much for slow hardware.
+COMPOUNDWORDMAX 3
+
 
 PFX U Y 1
 PFX U   0     un       .
 
+
 PFX V Y 1
 PFX V   0     ver      .
+
 
 SFX F Y 35
 SFX F   0     nen        in
@@ -506,34 +545,13 @@ REP ch k
 REP k ch
 
 
-COMPOUNDRULE xy?z
-FORBIDDENWORD d
-ONLYINCOMPOUND o
-
-# my PSEUDOROOT h(elper) flag
-NEEDAFFIX h
-
-# forbid uppercase characters at compound word bounds
-# BUT I want to take care about it myself ;-)
-# CHECKCOMPOUNDCASE
-KEEPCASE w
-
-# Affixes  signed  with CIRCUMFIX flag may be on a word
-# when this word also has a prefix with CIRCUMFIX flag and vice versa.
-# for decapitalizing nouns with fogemorphemes
+# Affixes signed  with CIRCUMFIX flag may be on a word when this word
+# also has a prefix with CIRCUMFIX flag and vice versa. Used below for
+# decapitalizing nouns with fogemorphemes.
+#
+# FIXME: This must be defined here because 'f' is already used above.
+# It seems to work okay, but I'm not sure if by accident or design.
 CIRCUMFIX f
-
-# this one would make a separate dict entry "Denkmalsschutz" invalidate the
-# compound of "Denkmal"+"schutz". We do not want this feature here...
-# CHECKCOMPOUNDREP
-
-# make not all possible suggestions for typos of Flicken or some rare words
-NOSUGGEST n
-
-
-# this one needs to be flagable to be used for old orthography
-#CHECKCOMPOUNDTRIPLE
-COMPOUNDWORDMAX 3
 
 
 PFX i Y 1
@@ -544,8 +562,12 @@ SFX j 0 /xoc .
 SFX j 0 /zocf .
 SFX j 0 /cz .
 
-# Female forms for compound/Compound words:
-# attention: [^e][^n] does also filter out "...er" !
+
+# Female forms for compound/Compound words. This is for gendered forms,
+# e.g. 'Schülerinnen' (female form of 'Schüler') vs. 'SchülerInnen'
+# (both male and female form in one word).
+#
+# Attention: [^e][^n] does also filter out "...er" !
 SFX g Y 12
 SFX g 0  innen/xyoc [^n]
 SFX g en innen/xyoc en
@@ -564,6 +586,7 @@ SFX g en Innen/cz en
 PFX k Y 2
 PFX k 0 /coxf .
 PFX k 0 /coy .
+
 
 SFX e Y 1
 SFX e 0 /yoc .
