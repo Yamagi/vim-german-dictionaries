@@ -1,7 +1,5 @@
-# this is the affix file of the de_CH Hunspell dictionary
+# this is the affix file of the de_DE Hunspell dictionary
 # derived from the igerman98 dictionary
-#
-# Version: 20120607 (build 20120608)
 #
 # Copyright (C) 1998-2011 Bjoern Jacke <bjoern@j3e.de>
 #
@@ -10,7 +8,7 @@
 # with every distribution of this dictionary. Modified
 # versions using the GPL may only include the GPL
 
-SET ISO8859-1
+SET UTF-8
 TRY esijanrtolcdugmphbyfvkwqxzäüößáéêàâñESIJANRTOLCDUGMPHBYFVKWQXZÄÜÖÉ-.
 
 # Prefixes are allowed at the beginning of compounds,
