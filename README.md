@@ -13,3 +13,6 @@ The affix files are based upon earlier work by Github user @ganwell
 and the Vim developers:
   * https://github.com/ganwell/vim-hunspell-dicts
   * https://github.com/vim/vim/tree/2a953fcf107d24229fec8af820ee62c908caafbf/runtime/spell/de
+
+This dictionary is shipped with the Vim runtime files. It can be
+downloaded through Vim or from http://ftp.vim.org/pub/vim/runtime/spell/
